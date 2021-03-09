@@ -2,6 +2,16 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 const prefix = '!';
+const fs = require('fs');
+
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for (const file of commandFiles)
+{
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
 client.once('ready', () => 
 {
@@ -18,16 +28,17 @@ client.on('message', message =>
 
     if(command === 'howdy')
     {
-        message.channel.send('howdy partner');
+        client.commands.get('howdy').execute(message, args);
     }
     else if (command == 'check')
     {
-        message.channel.send('drink ya water fix ya posture take ya vitamins');
+        client.commands.get('check').execute(message, args);
     }
     else if (command == 'bitsplease')
     {
-        message.channel.send('every saturday @ 7 cst 8) https://www.twitch.tv/gnarlolita_');
+        client.commands.get('bitsplease').execute(message, args);
     }
 });
 
-client.login('ODE4NzAyNzA4Mzc3NzgwMjc0.YEb6UA.YtKm4zqlaZnIIN2MOk-6zyh3eCk');
+// put token here
+client.login('');
