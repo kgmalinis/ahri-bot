@@ -30,4 +30,5 @@ client.on('message', message =>
     }
 });
 
-client.login('ODE4NzAyNzA4Mzc3NzgwMjc0.YEb6UA.YtKm4zqlaZnIIN2MOk-6zyh3eCk');
+// put token here
+client.login('');
