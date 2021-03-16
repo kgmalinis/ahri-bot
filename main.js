@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -12,7 +14,7 @@ for (const file of commandFiles)
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
-
+ 
 client.once('ready', () => 
 {
     console.log('we live on the web');
@@ -23,7 +25,6 @@ client.on('message', message =>
     if(!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
-
     const command = args.shift().toLowerCase();
 
     if(command === 'howdy')
@@ -38,7 +39,15 @@ client.on('message', message =>
     {
         client.commands.get('bitsplease').execute(message, args);
     }
+    // else if (command == 'change')
+    // {
+    //     client.commands.get('change').execute(message, args);
+    // }
+    // else if (command == 'covid')
+    // {
+    //     client.commands.get('covid').execute(message, args);
+    // }
 });
 
-// put token here
-// client.login('');
+//token
+client.login(process.env.BOT_TOKEN);
